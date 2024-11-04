@@ -5,6 +5,7 @@ export type Store = {
 };
 
 export type StoreCreationInput = {
+  id: number;
   name: string;
   website?: string;
 };

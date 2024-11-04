@@ -1,0 +1,2 @@
+-- AddForeignKey
+ALTER TABLE "BuyCard" ADD CONSTRAINT "BuyCard_id_fkey" FOREIGN KEY ("id") REFERENCES "WishCard"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -22,9 +22,9 @@ export class StoresController {
 
   @Post('/')
   public async postStore(@Body() body: CreateStoreDto) {
-    const { name, website } = body;
+    const { id, name, website } = body;
 
-    return await this.storesService.registerStore({ name, website });
+    return await this.storesService.registerStore({ id, name, website });
   }
 
   @Patch('/:id')

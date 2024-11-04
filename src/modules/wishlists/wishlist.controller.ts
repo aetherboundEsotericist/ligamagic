@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Param, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Put } from '@nestjs/common';
 import { WishlistService } from './wishlist.service';
-import { PutWishlistParamsDto } from './dtos/put-wishlist-params.dto';
+import { WishlistParamsDto } from './dtos/wishlist-params.dto';
 import { PutWishlistBodyDto } from './dtos/put-wishlist-body.dto';
 import { LIGAMAGIC_WISHLIST_PARSING_PATTERN } from './patterns';
 import { WishCardCreationInput } from './types';
@@ -11,14 +11,20 @@ export class WishlistController {
   constructor(private readonly wishlistService: WishlistService) {}
 
   @Get('/orders/:id/wishlist')
-  public async getOrderWishlist(@Param() params: IdParamsDto) {
+  public async getOrderWishlists(@Param() params: IdParamsDto) {
     const { id } = params;
     return this.wishlistService.retrieveOrderWishlist(id);
   }
 
+  @Get('/persons/:id/wishlist')
+  public async getPersonWishlists(@Param() params: IdParamsDto) {
+    const { id } = params;
+    return this.wishlistService.retrievePersonWishlist(id);
+  }
+
   @Put('/persons/:personId/orders/:orderId/wishlist')
   public async putWishlist(
-    @Param() params: PutWishlistParamsDto,
+    @Param() params: WishlistParamsDto,
     @Body() body: PutWishlistBodyDto,
   ) {
     const { orderId, personId } = params;
@@ -46,6 +52,17 @@ export class WishlistController {
       });
     }
 
-    this.wishlistService.createOrUpdateWishlist({ orderId, personId, cards });
+    await this.wishlistService.createOrUpdateWishlist({
+      orderId,
+      personId,
+      cards,
+    });
+  }
+
+  @Delete('/persons/:personId/orders/:orderId/wishlist')
+  public async deleteWishlist(@Param() params: WishlistParamsDto) {
+    const { orderId, personId } = params;
+
+    await this.wishlistService.removeWishlist({ orderId, personId });
   }
 }

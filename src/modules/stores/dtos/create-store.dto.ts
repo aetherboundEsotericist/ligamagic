@@ -1,7 +1,19 @@
 import { Type } from 'class-transformer';
-import { IsOptional, IsString, IsUrl, MaxLength } from 'class-validator';
+import {
+  IsInt,
+  IsOptional,
+  IsPositive,
+  IsString,
+  IsUrl,
+  MaxLength,
+} from 'class-validator';
 
 export class CreateStoreDto {
+  @Type(() => Number)
+  @IsPositive()
+  @IsInt()
+  id: number;
+
   @Type(() => String)
   @IsString()
   @MaxLength(16)

@@ -35,28 +35,31 @@ model Order {
 }
 
 model WishCard {
-  id       Int     @id @default(autoincrement())
+  id       Int      @id @default(autoincrement())
   name     String
-  edition  String? @db.Char(5)
-  quality  Int     @default(5)
-  quantity Int     @default(1)
-  person   Person  @relation(fields: [personId], references: [id])
-  order    Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  edition  String?  @db.Char(5)
+  quality  Int      @default(5)
+  quantity Int      @default(1)
+  person   Person   @relation(fields: [personId], references: [id])
+  order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  buycard  BuyCard?
 
   personId Int
   orderId  Int
 }
 
 model BuyCard {
-  id       Int    @id @default(autoincrement())
-  cardName String
-  edition  String @db.Char(5)
+  id       Int       @id @default(autoincrement())
+  name     String
+  edition  String    @db.Char(5)
   quality  Int
   quantity Int
   price    Float
-  store    Store  @relation(fields: [storeId], references: [id])
-  order    Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  store    Store     @relation(fields: [storeId], references: [id])
+  order    Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  wishcard WishCard? @relation(fields: [wishcardId], references: [id])
 
-  storeId Int
-  orderId Int
+  storeId    Int
+  orderId    Int
+  wishcardId Int? @unique
 }

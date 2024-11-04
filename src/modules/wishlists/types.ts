@@ -20,3 +20,8 @@ export type WishlistCreationInput = {
   orderId: number;
   cards: WishCardCreationInput[];
 };
+
+export type WishlistRemovalInput = {
+  personId: number;
+  orderId: number;
+};
