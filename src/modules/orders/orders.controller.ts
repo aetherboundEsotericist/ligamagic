@@ -10,7 +10,6 @@ import {
 import { OrdersService } from './orders.service';
 import { IdParamsDto } from '../shared/dtos';
 import { CreateOrderDto } from './dtos';
-import { AssignmentList, WishBuyAttribution } from './types';
 import { WishBuyAttributionDto } from './dtos/wish-buy-attribution.dto';
 
 @Controller('/orders')
